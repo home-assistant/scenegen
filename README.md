@@ -74,7 +74,7 @@ This will create a new scene called `my_new_scene` which will automatically be p
 
 ## Colors
 
-Home Assistant allows colors to be captured, and in fact Home Assistant light entities store up to 5 different ways of specifying the colors. This is redundant for creating scenes so Scenegen picks 1 and goes with it. The default is `color_temp` but you can change this with the `--colortype` flag.
+Scenegen allows colors to be captured, and in fact Home Assistant light entities store up to 5 different ways of specifying the colors. This is redundant for creating scenes so Scenegen picks 1 and goes with it. The default is `color_temp` but you can change this with the `--colortype` flag.
 
 ## Types
 
