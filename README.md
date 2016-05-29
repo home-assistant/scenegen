@@ -102,7 +102,7 @@ light.living_room
 light.dining_room
 ```
 
-If you run scenegen with the `--mapfile` argument pointing to that file you will only get output for the listed entities (the name of the section is irrelevant). A more complex mapfile might look like this:
+If you run scenegen with the `--mapfile` argument pointing to that file you will only get output for the listed entities (the name of the section is irrelevant if not using the `--filter` option). A more complex mapfile might look like this:
 
 ```
 [Outside]
