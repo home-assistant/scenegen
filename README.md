@@ -54,6 +54,8 @@ This output can be cut and pasted into your configuration.yaml file as required 
 
 Scenegen supports all documented effects for lights including transitions and flash effects, however generally it is easier to run scenegen to get the basic setup and add any effects manually later.
 
+Note that depending on the type of light there maybe a delay in actually setting up its para,eters and Home Assistant actually recieving that state. For instance, if you set a scene up with the Hue App, Home Assistant won't see those changes for up to 10 seconds. Turning on a ZWave light might not be seen for an entire poll interval. For this reason, its good practice to wait for a while after the scene is setup before running scenegen. Alternatively, perform all setup using the Home Assistant frontend and it will instantly have the required state for capture.
+
 ## Advanced Usage
 
 For a more advanced way to use the output try the following. In configuration.yaml add the following line:
