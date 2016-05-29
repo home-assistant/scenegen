@@ -6,6 +6,10 @@ import configparser
 
 light_color_types = ["xy_color", "rgb_color", "color_temp", "color_name"]
 
+def error(message):
+    sys.stderr.write("error: %s\n" % message)
+    sys.exit(1)
+
 def get_states(url, key):
   headers = {'x-ha-access': key}
   apiurl = url + "/api/states"
@@ -57,10 +61,14 @@ def main():
   
   filters = []
   if args.filter:
-    filters = args.filter.split(",")
+    if args.mapfile:
+      filters = args.filter.split(",")
+    else:
+      error("Must specify a mapfile if using filters")
   try:
     states = get_states(args.url, args.key)
     print("name: {}".format(args.scenename))
+    print("entities:")
     for state in states:
       if args.mapfile:
         if args.filter:
