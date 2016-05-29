@@ -4,6 +4,8 @@ import requests
 import argparse
 import configparser
 
+light_color_types = ["xy_color", "rgb_color", "color_temp", "color_name"]
+
 def get_states(url, key):
   headers = {'x-ha-access': key}
   apiurl = url + "/api/states"
@@ -40,7 +42,7 @@ def main():
   parser.add_argument("-s", "--scenename", help="Name of scene to generate", default = "My New Scene")
   parser.add_argument("-m", "--mapfile", help="Name of mapfile to enable device filtering")
   parser.add_argument("-f", "--filter", help="Comma separated list of device collections as defined in mapfile")
-  parser.add_argument("-c", "--colortype", help="color type to use", default = "color_temp", choices= ["xy_color", "rgb_color", "color_temp", "color_name"])
+  parser.add_argument("-c", "--colortype", help="color type to use", default = "color_temp", choices = light_color_types)
   parser.add_argument("-t", "--types", help="list of device types to include", default = "light,switch")
   args = parser.parse_args()
   
