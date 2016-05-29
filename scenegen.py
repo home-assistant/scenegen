@@ -3,6 +3,7 @@
 import requests
 import argparse
 import configparser
+import sys
 
 light_color_types = ["xy_color", "rgb_color", "color_temp", "color_name"]
 

@@ -50,9 +50,9 @@ entities:
     brightness: 28
 ```
 
-This output can be cut and pasted into your configuration.yaml file as required (ensuring correct indentatation of course.
+This output can be cut and pasted into your configuration.yaml file as required (ensuring correct indentatation of course).
 
-Scenegen supports all documented effects for lights including transitions and flash effects, however generally it is more effective to run scenegen to get the basic setup and add any effects manually later.
+Scenegen supports all documented effects for lights including transitions and flash effects, however generally it is easier to run scenegen to get the basic setup and add any effects manually later.
 
 ## Advanced Usage
 
@@ -62,13 +62,13 @@ For a more advanced way to use the output try the following. In configuration.ya
 scene: !include_dir_list scenes
 ```
 
-This will tell home assistant to look in the subdirectory `scenes` for yaml files containing scene information. Each file will be named for the scene it will create and should contain information formatted as above. Then simmply run the tool and redirect its output to the scenes subdirectory:
+This will tell home assistant to look in the subdirectory `scenes` for yaml files containing scene information. Each file will be named for the scene it will create and should contain information formatted as above. Then simply run Scenegen and redirect its output to the scenes subdirectory:
 
 ```
-$ scenegen https://<some url> <some api key> > scenes/my_scene.yaml
+$ scenegen https://<some url> <some api key> > scenes/my_new_scene.yaml
 ```
 
-This will create a new scene called `my_scene` which will automatically be picked up by Home Assistant on the next restart.
+This will create a new scene called `my_new_scene` which will automatically be picked up by Home Assistant on the next restart.
 
 ## Colors
 
@@ -76,10 +76,10 @@ Home Assistant allows colors to be captured, and in fact Home Assistant light en
 
 ## Types
 
-By default, Scenegen will list all lights and switches. To restrict the device type use the `--types` option and supply a comma separated list of type to output. e.g.:
+By default, Scenegen will list all lights and switches. To restrict the device type use the `--types` option and supply a comma separated list (no spaces) of types to output. e.g.:
 
 ```
-scenegen https://<some url> <some api key> --types light, switch
+scenegen https://<some url> <some api key> --types light,switch
 ```
 
 or:
@@ -90,7 +90,7 @@ scenegen https://<some url> <some api key> --types light
 
 This will make more sense as and when more types are added.
 
-## Maps and Filtesr
+## Maps and Filters
 
 Maps allow you to specify and label various subsets of devices that you want to work on together. A mapfile is specified using the `--mapfile` option and is a `.ini` style file consisting of section headers and entries. The section headers specify a region or zone or otherwise organized selection of entities you want to filter on, and it is mandatory to have at least one. If you create a map file like this:
 
@@ -100,7 +100,7 @@ light.living_room
 light.dining_room
 ```
 
-If you run scenegen with the `--mapfile` argument pointing to that file you will only get output for the  listed entities (the name of the section is irrelevant). A more complex mapfile might look like this:
+If you run scenegen with the `--mapfile` argument pointing to that file you will only get output for the listed entities (the name of the section is irrelevant). A more complex mapfile might look like this:
 
 ```
 [Outside]
@@ -113,11 +113,11 @@ light.living_room_back
 light.bedside
 ```
 
-Again, if you run with that map file it will output all of the entities listed, however you now have the possibility of restricting output devices based on the sections they are in, using the `--filter` option and supplying a commaseparated list of sections you want to include, for instance:
+Again, if you run with that map file it will output all of the entities listed, however you now have the possibility of restricting output devices based on the sections they are in, using the `--filter` option and supplying a comma separated list of sections you want to include, for instance:
 
 ```
 scenegen https://<some url> <some api key> --mapfile map.cfg --filter "Outside,Living Room"
 ```
 
-The intended us of the mapfile and filter is that you create a map of all your devices and organize them into zones that you are interested in creating scenes for and use the filter to limit output to that zone. For instance you might want to create 3 or 4 scenes for your living room, and once the map is set up you can easily do so without the addition of unwanted devices.
+The intended use of the mapfile and filter is that you create a map of all your devices and organize them into zones that you are interested in creating scenes for and use the filter to limit output to that zone. For instance you might want to create 3 or 4 scenes for your living room, and once the map is set up you can easily do so without the addition of unwanted devices.
 
