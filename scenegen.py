@@ -14,33 +14,20 @@ def output_attrs(state, args):
   parts = state["entity_id"].split(".")
   type = parts[0]
   name = parts[1]
+  light_attrs = ["transition", "profile", "brightness", "flash"]
+  light_color_types = ["xy_color", "rgb_color", "color_temp", "color_name"]
   if type == "light" and "light" in args.types:
     print ("  {}:".format(state["entity_id"]))
     print ("    state: {}".format(state["state"]))
-    if 'brightness' in state["attributes"]:
-      print("    brightness: {}".format(round(float(state["attributes"]['brightness']))))
-    if 'xy_color' in state["attributes"] and args.colortype == 'xy_color':
-      print("    xy_color: {}".format(state["attributes"]['xy_color']))
-    if 'rgb_color' in state["attributes"] and args.colortype == 'rgb_color':
-      print("    rgb_color: {}".format(state["attributes"]['rgb_color']))
-    if 'color_temp' in state["attributes"] and args.colortype == 'color_temp':
-      print("    color_temp: {}".format(state["attributes"]['color_temp']))
+    for attr in light_attrs:      
+      if attr in state["attributes"]:
+          print("    {}: {}".format(attr, round(float(state["attributes"][attr]))))
+    for color_type in light_color_types:
+      if color_type in state["attributes"] and args.colortype == color_type:
+        print("    {}: {}".format(color_type, state["attributes"][color_type]))
   if type == "switch" and "switch" in args.types:
     print ("  {}:".format(state["entity_id"]))
     print ("    state: {}".format(state["state"]))
-  if type == "thermostat" and "thermostat" in args.types:
-    print ("  {}:".format(state["entity_id"]))
-  if type == "hvac" and "hvac" in args.types:
-    print ("  {}:".format(state["entity_id"]))
-    if 'operation_mode' in state["attributes"]:        
-      print ("    operation_mode: {}".format(state["attributes"]["operation_mode"]))
-    if 'temperature' in state["attributes"]:        
-      print ("    temperature: {}".format(state["attributes"]["temperature"]))
-    if 'fan_mode' in state["attributes"]:        
-      print ("    fan_mode: {}".format(state["attributes"]["fan_mode"]))
-    if 'swing_mode' in state["attributes"]:        
-      print ("    swing_mode: {}".format(state["attributes"]["swing_mode"]))
-
   
 def main():
 
@@ -53,7 +40,7 @@ def main():
   parser.add_argument("-s", "--scenename", help="Name of scene to generate", default = "My New Scene")
   parser.add_argument("-m", "--mapfile", help="Name of mapfile to enable device filtering")
   parser.add_argument("-f", "--filter", help="Comma separated list of device collections as defined in mapfile")
-  parser.add_argument("-c", "--colortype", help="color type to use", default = "color_temp", choices= ["xy_color", "rgb_color", "color_temp"])
+  parser.add_argument("-c", "--colortype", help="color type to use", default = "color_temp", choices= ["xy_color", "rgb_color", "color_temp", "color_name"])
   parser.add_argument("-t", "--types", help="list of device types to include", default = "light,switch")
   args = parser.parse_args()
   
