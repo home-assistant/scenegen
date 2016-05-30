@@ -67,7 +67,7 @@ scene: !include_dir_list scenes
 This will tell home assistant to look in the subdirectory `scenes` for yaml files containing scene information. Each file will be named for the scene it will create and should contain information formatted as above. Then simply run Scenegen and redirect its output to the scenes subdirectory:
 
 ```
-$ scenegen https://<some url> <some api key> > scenes/my_new_scene.yaml
+$ ./scenegen.py https://<some url> <some api key> > scenes/my_new_scene.yaml
 ```
 
 This will create a new scene called `my_new_scene` which will automatically be picked up by Home Assistant on the next restart.
