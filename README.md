@@ -31,7 +31,7 @@ optional arguments:
 For basic operation just supply the url and api key on the command line and scenegen will output a list of all lights and switches with their attributes. Optionally use the `--scenename` flag to explicitly set the scenename.
 
 ```
-$ scenegen https://<some url> <some api key>
+$ ./scenegen.py https://<some url> <some api key>
 name: My New Scene
 entities:
   light.bedroom:
@@ -81,13 +81,13 @@ Scenegen allows colors to be captured, and in fact Home Assistant light entities
 By default, Scenegen will list all lights and switches. To restrict the device type use the `--types` option and supply a comma separated list (no spaces) of types to output. e.g.:
 
 ```
-scenegen https://<some url> <some api key> --types light,switch
+./scenegen.py https://<some url> <some api key> --types light,switch
 ```
 
 or:
 
 ```
-scenegen https://<some url> <some api key> --types light
+./scenegen.py https://<some url> <some api key> --types light
 ```
 
 This will make more sense as and when more types are added.
@@ -118,7 +118,7 @@ light.bedside
 Again, if you run with that map file it will output all of the entities listed, however you now have the possibility of restricting output devices based on the sections they are in, using the `--filter` option and supplying a comma separated list of sections you want to include, for instance:
 
 ```
-scenegen https://<some url> <some api key> --mapfile map.cfg --filter "Outside,Living Room"
+./scenegen.py https://<some url> <some api key> --mapfile map.cfg --filter "Outside,Living Room"
 ```
 
 The intended use of the mapfile and filter is that you create a map of all your devices and organize them into zones that you are interested in creating scenes for and use the filter to limit output to that zone. For instance you might want to create 3 or 4 scenes for your living room, and once the map is set up you can easily do so without the addition of unwanted devices.
