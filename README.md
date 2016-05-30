@@ -54,7 +54,7 @@ This output can be cut and pasted into your configuration.yaml file as required 
 
 Scenegen supports all documented effects for lights including transitions and flash effects, however generally it is easier to run scenegen to get the basic setup and add any effects manually later.
 
-Note that depending on the type of light there maybe a delay in actually setting up its parameters and Home Assistant actually recieving that state. For instance, if you set a scene up with the Hue App, Home Assistant won't see those changes for up to 10 seconds. Turning on a ZWave light might not be seen for an entire poll interval. For this reason, its good practice to wait for a while after the scene is setup before running scenegen. Alternatively, perform all setup using the Home Assistant frontend and it will instantly have the required state for capture.
+Note that depending on the type of light there may be a delay in actually setting up its parameters and Home Assistant actually recieving that state. For instance, if you set a scene up with the Hue App, Home Assistant won't see those changes for up to 10 seconds. Turning on a ZWave light might not be seen for an entire poll interval. For this reason, its good practice to wait for a while after the scene is setup before running scenegen. Alternatively, perform all setup using the Home Assistant frontend and it will instantly have the required state for capture.
 
 ## Advanced Usage
 
@@ -74,7 +74,7 @@ This will create a new scene called `my_new_scene` which will automatically be p
 
 ## Colors
 
-Scenegen allows colors to be captured, and in fact Home Assistant light entities store up to 5 different ways of specifying the colors. This is redundant for creating scenes so Scenegen picks 1 and goes with it. The default is `color_temp` but you can change this with the `--colortype` flag.
+Scenegen allows colors to be captured, and in fact Home Assistant light entities store up to 4 different ways of specifying the colors. This is redundant for creating scenes so Scenegen picks 1 and goes with it. The default is `color_temp` but you can change this with the `--colortype` flag, supported options are xy_color, rgb_color, color_temp and color_name.
 
 ## Types
 
