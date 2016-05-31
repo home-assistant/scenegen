@@ -98,21 +98,23 @@ Maps allow you to specify and label various subsets of devices that you want to 
 
 ```
 [entities]
-light.living_room
-light.dining_room
+light.living_room:
+light.dining_room:
 ```
+
+The trailing colons are necessary to prevent parsing errors for including just keys, as opposed to key=value so just go with it - it reminds us of YAML ;)
 
 If you run scenegen with the `--mapfile` argument pointing to that file you will only get output for the listed entities (the name of the section is irrelevant if not using the `--filter` option). A more complex mapfile might look like this:
 
 ```
 [Outside]
-light.porch
-switch.path_lights
+light.porch:
+switch.path_lights:
 [Living Room]
-light.living_room_front
-light.living_room_back
+light.living_room_front:
+light.living_room_back:
 [Bedroom]
-light.bedside
+light.bedside:
 ```
 
 Again, if you run with that map file it will output all of the entities listed, however you now have the possibility of restricting output devices based on the sections they are in, using the `--filter` option and supplying a comma separated list of sections you want to include, for instance:
