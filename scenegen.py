@@ -12,7 +12,11 @@ def error(message):
     sys.exit(1)
 
 def get_states(url, key):
-  headers = {'x-ha-access': key}
+  if key != None:
+    headers = {'x-ha-access': key}
+  else:
+    headers = {}
+    
   apiurl = url + "/api/states"
   r = requests.get(apiurl, headers=headers)
   return r.json()
@@ -43,7 +47,7 @@ def main():
   parser = argparse.ArgumentParser()
 
   parser.add_argument("url", help="url for Home Assistant instance")
-  parser.add_argument("key", help="API Key of Home Assistant instance")
+  parser.add_argument("-k", "--key", help="API Key of Home Assistant instance")
   parser.add_argument("-s", "--scenename", help="Name of scene to generate", default = "My New Scene")
   parser.add_argument("-m", "--mapfile", help="Name of mapfile to enable device filtering")
   parser.add_argument("-f", "--filter", help="Comma separated list of device collections as defined in mapfile")

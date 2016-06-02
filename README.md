@@ -5,16 +5,16 @@ Scenegen is a scene generation tool for [Home Assistant](https://home-assistant.
 ## Basic Operation
 
 ```
-usage: scenegen [-h] [-s SCENENAME] [-m MAPFILE] [-f FILTER]
+usage: scenegen [-h] [-k KEY] [-s SCENENAME] [-m MAPFILE] [-f FILTER]
                 [-c {xy_color,rgb_color,color_temp,color_name}] [-t TYPES]
-                url key
+                url
 
 positional arguments:
   url                   url for Home Assistant instance
-  key                   API Key of Home Assistant instance
 
 optional arguments:
   -h, --help            show this help message and exit
+  -k KEY, --key KEY     API Key of Home Assistant instance
   -s SCENENAME, --scenename SCENENAME
                         Name of scene to generate
   -m MAPFILE, --mapfile MAPFILE
@@ -26,12 +26,13 @@ optional arguments:
                         color type to use
   -t TYPES, --types TYPES
                         list of device types to include
-```
-
-For basic operation just supply the url and api key on the command line and scenegen will output a list of all lights and switches with their attributes. Optionally use the `--scenename` flag to explicitly set the scenename.
 
 ```
-$ ./scenegen.py https://<some url> <some api key>
+
+For basic operation just supply the url and optionally the api key (using the --key option) on the command line and scenegen will output a list of all lights and switches with their attributes. Optionally use the `--scenename` flag to explicitly set the scenename.
+
+```
+$ ./scenegen.py https://<some url> -k <some api key>
 name: My New Scene
 entities:
   light.bedroom:
@@ -67,7 +68,7 @@ scene: !include_dir_list scenes
 This will tell home assistant to look in the subdirectory `scenes` for yaml files containing scene information. Each file will be named for the scene it will create and should contain information formatted as above. Then simply run Scenegen and redirect its output to the scenes subdirectory:
 
 ```
-$ ./scenegen.py https://<some url> <some api key> > scenes/my_new_scene.yaml
+$ ./scenegen.py https://<some url> -k <some api key> > scenes/my_new_scene.yaml
 ```
 
 This will create a new scene called `my_new_scene` which will automatically be picked up by Home Assistant on the next restart.
@@ -81,13 +82,13 @@ Scenegen allows colors to be captured, and in fact Home Assistant light entities
 By default, Scenegen will list all lights and switches. To restrict the device type use the `--types` option and supply a comma separated list (no spaces) of types to output. e.g.:
 
 ```
-./scenegen.py https://<some url> <some api key> --types light,switch
+./scenegen.py https://<some url> -k <some api key> --types light,switch
 ```
 
 or:
 
 ```
-./scenegen.py https://<some url> <some api key> --types light
+./scenegen.py https://<some url> -k <some api key> --types light
 ```
 
 This will make more sense as and when more types are added.
@@ -120,7 +121,7 @@ light.bedside:
 Again, if you run with that map file it will output all of the entities listed, however you now have the possibility of restricting output devices based on the sections they are in, using the `--filter` option and supplying a comma separated list of sections you want to include, for instance:
 
 ```
-./scenegen.py https://<some url> <some api key> --mapfile map.cfg --filter "Outside,Living Room"
+./scenegen.py https://<some url> -k <some api key> --mapfile map.cfg --filter "Outside,Living Room"
 ```
 
 The intended use of the mapfile and filter is that you create a map of all your devices and organize them into zones that you are interested in creating scenes for and use the filter to limit output to that zone. For instance you might want to create 3 or 4 scenes for your living room, and once the map is set up you can easily do so without the addition of unwanted devices.
