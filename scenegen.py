@@ -18,7 +18,12 @@ def get_states(url, key):
     headers = {}
     
   apiurl = url + "/api/states"
+  
   r = requests.get(apiurl, headers=headers)
+  
+  if r.status_code != 200:
+    error("Error calling Home Assistant: {}, {}".format(r.status_code, r.reason))
+    
   return r.json()
 
 def output_attrs(state, args):

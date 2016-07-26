@@ -126,3 +126,12 @@ Again, if you run with that map file it will output all of the entities listed, 
 
 The intended use of the mapfile and filter is that you create a map of all your devices and organize them into zones that you are interested in creating scenes for and use the filter to limit output to that zone. For instance you might want to create 3 or 4 scenes for your living room, and once the map is set up you can easily do so without the addition of unwanted devices.
 
+# Release Notes
+
+***Version 1.1***
+
+- Add better error checking for Home Assistant errors
+
+***Version 1.0***
+
+Initial Release
