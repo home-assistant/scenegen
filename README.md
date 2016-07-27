@@ -160,6 +160,10 @@ $ git pull origin
 
 # Release Notes
 
+***Version 1.2***
+
+- Add installation instructions
+
 ***Version 1.1***
 
 - Add better error checking for Home Assistant errors
