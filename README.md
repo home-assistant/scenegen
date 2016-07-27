@@ -2,6 +2,31 @@
 
 Scenegen is a scene generation tool for [Home Assistant](https://home-assistant.io/) home automation software. It creates scenes by example, by reading the current states of devices and outputting a corresponding scene. Scenegen is written in python using Home Assistant's RESTFul API so can be run from anywhere. It currently supports lights and switches only.
 
+# Installation
+
+## Clone the Repository
+Clone the **scenegen** repository to the current local directory on your machine.
+
+``` bash
+$ git clone https://github.com/home-assistant/scenegen.git
+```
+
+Change your working directory to the repository root. Moving forward, we will be working from this directory.
+
+``` bash
+$ cd scenegen
+```
+
+# Install Prereqs
+
+Before running `AppDaemon` you will need to add some python prerequisites:
+
+```bash
+$ sudo pip3 install configparser
+```
+
+You should now be ready to run `scenegen`
+
 ## Basic Operation
 
 ```
@@ -125,6 +150,13 @@ Again, if you run with that map file it will output all of the entities listed, 
 ```
 
 The intended use of the mapfile and filter is that you create a map of all your devices and organize them into zones that you are interested in creating scenes for and use the filter to limit output to that zone. For instance you might want to create 3 or 4 scenes for your living room, and once the map is set up you can easily do so without the addition of unwanted devices.
+
+# Updating AppDaemon
+To update AppDaemon after I have released new code, just run the following command to update your copy:
+
+```bash
+$ git pull origin
+```
 
 # Release Notes
 
