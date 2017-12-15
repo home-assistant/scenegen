@@ -10,10 +10,11 @@ import yaml
 __version__ = '0.0.1'
 
 LIGHT_ATTRS = ['transition', 'profile', 'brightness', 'flash']
-LIGHT_COLOR_TYPES = ['xy_color', 'rgb_color', 'color_temp', 'color_name']
+LIGHT_COLOR_TYPES = ['xy_color', 'rgb_color', 'color_name', 'color_temp']
 
 
 def error(message):
+    """Output an error and exit"""
     sys.stderr.write("error: %s\n" % message)
     sys.exit(1)
 
@@ -47,18 +48,24 @@ def output_attrs(state, args):
                 if attr in state['attributes']:
                     nustate[attr] = state['attributes'][attr]
             # Add in color type state if set
-            if args.colortype in state['attributes']:
+            if args.colortype and args.colortype in state['attributes']:
                 nustate[args.colortype] = state['attributes'][args.colortype]
+            else:
+                # If the requested color type isn't available, output the first one we can find
+                for attr in LIGHT_COLOR_TYPES:
+                    if attr in state['attributes']:
+                        nustate[attr] = state['attributes'][attr]
+                        break
         # Switch
         elif device_type == 'switch':
             nustate = state['state']
         else:
             error('Unsupported device type ({}) detected while trying to process entity {}'.format(device_type, state['entity_id']))
         return {state['entity_id']: nustate}
+    return None
 
 def main():
     # Get command line args
-
     parser = argparse.ArgumentParser()
 
     parser.add_argument('url', help='url for Home Assistant instance')
@@ -66,7 +73,7 @@ def main():
     parser.add_argument('-s', '--scenename', help='Name of scene to generate', default='My New Scene')
     parser.add_argument('-m', '--mapfile', help='Name of mapfile to enable device filtering')
     parser.add_argument('-f', '--filter', help='Comma separated list of device collections as defined in mapfile')
-    parser.add_argument('-c', '--colortype', help='color type to use', default='color_temp', choices=LIGHT_COLOR_TYPES)
+    parser.add_argument('-c', '--colortype', help='color type to use', default='xy_color', choices=LIGHT_COLOR_TYPES)
     parser.add_argument('-t', '--types', help='list of device types to include', default='light,switch')
     parser.add_argument('--no-sslverify', help='disables SSL verification, useful for self signed certificates', action='store_true')
     parser.add_argument('--cacerts', help='alternative set of trusted CA certificates to use for connecting to Home Assistant')
