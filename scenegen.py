@@ -17,7 +17,7 @@ def error(message):
     sys.stderr.write("error: %s\n" % message)
     sys.exit(1)
 
-def get_states(url, key=None):
+def get_states(url, key=None, ssl_verify=None):
     """Get a dump of all current entities in Home Assistant"""
     headers = {
         'Accept': 'application/json',
@@ -27,7 +27,7 @@ def get_states(url, key=None):
         headers['X-HA-Access'] = key
 
     apiurl = parse.urljoin(url, '/api/states')
-    resp = requests.get(apiurl, headers=headers)
+    resp = requests.get(apiurl, headers=headers, verify=ssl_verify)
 
     if resp.status_code != 200:
         error("Error calling Home Assistant: {}, {}".format(resp.status_code, resp.reason))
@@ -68,6 +68,8 @@ def main():
     parser.add_argument('-f', '--filter', help='Comma separated list of device collections as defined in mapfile')
     parser.add_argument('-c', '--colortype', help='color type to use', default='color_temp', choices=LIGHT_COLOR_TYPES)
     parser.add_argument('-t', '--types', help='list of device types to include', default='light,switch')
+    parser.add_argument('--no-sslverify', help='disables SSL verification, useful for self signed certificates', action='store_true')
+    parser.add_argument('--cacerts', help='alternative set of trusted CA certificates to use for connecting to Home Assistant')
     args = parser.parse_args()
 
     filter_list = []
@@ -82,8 +84,15 @@ def main():
             if section in filters:
                 filter_list.extend(config.options(section))
 
+    # Check if to disable SSL verification, or provide alternative CA certs
+    ssl_verify = None
+    if args.no_sslverify:
+        ssl_verify = False
+    elif args.cacerts:
+        ssl_verify = args.cacerts
+
     try:
-        states = get_states(args.url, args.key)
+        states = get_states(args.url, args.key, ssl_verify)
     except requests.exceptions.RequestException as exc:
         error('Unknown error occured while trying to read the state from Home Assistant: {}'.format(str(exc)))
 
