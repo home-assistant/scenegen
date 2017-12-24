@@ -30,7 +30,7 @@ def output_attrs(state, args):
   parts = state["entity_id"].split(".")
   type = parts[0]
   name = parts[1]
-  light_attrs = ["transition", "profile", "brightness", "flash"]
+  light_attrs = ["transition", "profile", "brightness", "flash", "white_value"]
   light_color_types = ["xy_color", "rgb_color", "color_temp", "color_name"]
   if type == "light" and "light" in args.types:
     print ("  {}:".format(state["entity_id"]))
