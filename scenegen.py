@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-import requests
+import operator
+import sys
 import argparse
 import configparser
-import sys
+
+import requests
 
 light_color_types = ["xy_color", "rgb_color", "color_temp", "color_name"]
 
@@ -27,7 +29,11 @@ def get_states(url, key):
   if r.status_code != 200:
     error("Error calling Home Assistant: {}, {}".format(r.status_code, r.reason))
     
-  return r.json()
+  states = r.json()
+  # Sort to make output more consistent
+  states.sort(key=operator.itemgetter('entity_id'))
+  return states
+
 
 def output_attrs(state, args):
   parts = state["entity_id"].split(".")
