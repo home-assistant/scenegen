@@ -14,7 +14,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/home-assistant/scenegen",
-    packages=setuptools.find_packages(),
+    py_modules=["scenegen"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
@@ -28,4 +28,9 @@ setuptools.setup(
         "Topic :: Home Automation",
         "Topic :: Utilities",
     ],
-)
+
+    entry_points={
+        'console_scripts': [
+            'scenegen=scenegen:main',
+        ],
+},)
