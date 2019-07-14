@@ -71,6 +71,36 @@ def output_attrs(state, args):
         return {state['entity_id']: nustate}
     return None
 
+
+def list_scenes(args=None):
+    """
+    Return the entity IDs for all scenes available to Home Assistant.
+    """
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        'url', metavar='URL', help='The URL for Home Assistant instance')
+    parser.add_argument(
+        '-t', '--token', metavar='TOKEN',
+        help='A long lasting access token to authenticate to the REST API.')
+
+    args = parser.parse_args(args)
+
+    # Filter scenes first to sort on the smaller set
+    started_scenes = False
+    for state in get_states(args.url, args.token):
+        if not state['entity_id'].startswith('scene.'):
+            # The states are already sorted so no need to continue past the
+            # last scene
+            if started_scenes:
+                break
+            else:
+                continue
+        started_scenes = True
+
+        entity_id = state['entity_id'].split('.', 1)[1]
+        print(entity_id)
+
+
 def main():
     # Get command line args
     parser = argparse.ArgumentParser()

@@ -33,5 +33,6 @@ setuptools.setup(
     entry_points={
         'console_scripts': [
             'scenegen=scenegen:main',
+            'list-scenes=scenegen:list_scenes',
         ],
 },)
