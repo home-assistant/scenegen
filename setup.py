@@ -6,18 +6,26 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="example-pkg-your-username",
-    version="0.0.1",
-    author="Example Author",
-    author_email="author@example.com",
-    description="A small example package",
+    name="scenegen",
+    version="0.0.2",
+    author="Andrew Cockburn",
+    author_email="andrew@acockburn.com",
+    description="Generate scenes for Home Assistant",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/home-assistant/scenegen",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
+
+        "Development Status :: 4 - Beta",
+        "Environment :: Console",
+        "Intended Audience :: System Administrators",
+        "Natural Language :: English",
+        "Programming Language :: Python :: 3",
+        "Topic :: Home Automation",
+        "Topic :: Utilities",
     ],
 )
