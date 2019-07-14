@@ -29,6 +29,7 @@ setuptools.setup(
         "Topic :: Utilities",
     ],
 
+    install_requires=['requests'],
     entry_points={
         'console_scripts': [
             'scenegen=scenegen:main',
